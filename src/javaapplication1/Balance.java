@@ -11,7 +11,8 @@ import java.util.Scanner;
 /**
  *
  * @author Fran
- */
+ */ 
+
 public class Balance extends Stock {
     private int platosVendidos = 0;
 

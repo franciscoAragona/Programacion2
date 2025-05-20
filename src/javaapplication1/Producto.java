@@ -8,6 +8,7 @@ package javaapplication1;
  *
  * @author Fran
  */
+
 public class Producto {
     private String nombre;
     private int precio;
