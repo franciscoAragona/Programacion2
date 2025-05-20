@@ -44,10 +44,11 @@ public class Balance extends Stock {
     }
     
     public void estats(Tienda t){
+        System.out.println("ESTADISTICAS");
         System.out.println("Se han vendido "+t.getBalance().getPlatosVendidos()+" platos");
         if(t.getBalance().getPlatosVendidos() != 0){
             for(prodStock ps: t.getBalance().getS()){
-            System.out.println("Un " + (ps.getCantp()/t.getBalance().getPlatosVendidos())*100 + "% son " + ps.getNombre());
+                System.out.println("Un " + ((ps.getCantp()*100)/t.getBalance().getPlatosVendidos()) + "% son " + ps.getNombre());
             }
         }    
     }

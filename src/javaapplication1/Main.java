@@ -39,7 +39,7 @@ public class Main {
             }else if(op == 321){
                 answ = true;
             }else if(op == 1 && ready == false){
-                System.out.println("Configure la tienda");
+                System.out.println("Configure la tienda ");
             }
         }
         

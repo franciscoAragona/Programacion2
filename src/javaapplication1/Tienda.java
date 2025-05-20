@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class Tienda {
     private int clientes;
     private ArrayList<Producto> menu = new ArrayList();
-    private Stock stockTienda;
+    private Stock stockTienda = new Stock();
     private Caja caj = new Caja(0);
     private Cocina coci = new Cocina();
     private Balance balance = new Balance();
@@ -80,8 +80,11 @@ public class Tienda {
         while(answ != true){
             System.out.println("1 para ingresar un producto (nombre, precio) /// 0 para salir");
             int op = sc.nextInt();
+            sc.nextLine();
             if(op == 1){
+                System.out.println("nombre ");
                 nombre = sc.nextLine();
+                System.out.println("precio ");
                 precio = sc.nextInt();
                 Producto p = new Producto(nombre, precio);
                 t.getMenu().add(p);
