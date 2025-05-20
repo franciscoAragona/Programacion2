@@ -31,12 +31,19 @@ public class Orden {
         System.out.println("0 para salir");
         while (answ != true) {
             int op = sc.nextInt();
-            if(op > 0 && op <= t.getMenu().size() ){
-                o.getL().add(t.getMenu().get(op-1));
+            if(op > 0 && op <= t.getMenu().size()){
+                if(t.getStockTienda().checkStock(t.getMenu().get(op-1),t.getStockTienda().getS()) == true){
+                    o.getL().add(t.getMenu().get(op-1));
+                }else{
+                    System.out.println("NO HAY STOCK "+t.getMenu().get(op-1).mostrarP());
+                }
+                
             }else if(op == 0){
                 answ = true;
             }
         }
+        t.getStockTienda().delStock(o, t);
+        t.getBalance().addBalance(t, o); 
         return o;
     }
     

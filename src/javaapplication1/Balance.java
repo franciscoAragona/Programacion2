@@ -4,47 +4,51 @@
  */
 package javaapplication1;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 /**
  *
  * @author Fran
  */
-public class Balance {
-    private float año;
-    private float mes;
-    private float dia;
-    
-    public Balance(float año, float mes, float dia){
-        this.año = año;
-        this.mes = mes; 
-        this.dia = dia;
+public class Balance extends Stock {
+    private int platosVendidos = 0;
+
+    public int getPlatosVendidos() {
+        return platosVendidos;
     }
 
-    public float getAño() {
-        return año;
-    }
-
-    public void setAño(float año) {
-        this.año = año;
-    }
-
-    public float getMes() {
-        return mes;
-    }
-
-    public void setMes(float mes) {
-        this.mes = mes;
-    }
-
-    public float getDia() {
-        return dia;
-    }
-
-    public void setDia(float dia) {
-        this.dia = dia;
+    public void setPlatosVendidos(int platosVendidos) {
+        this.platosVendidos = platosVendidos;
     }
     
-    public void balanceA(){ año += mes;}
-    public void balanceM(){ mes += dia;}
-    public void balanceD(Caja c){ dia += c.getDinero_caja();}
+    @Override
+    public void createStock(Tienda t){
+        for (Producto p: t.getMenu()){
+            prodStock ps = new prodStock(p.getNombre(), p.getPrecio(), 0);
+            t.getBalance().getS().add(ps);
+        }
+    }
     
+    public void addBalance(Tienda t, Orden o){
+        t.getBalance().setPlatosVendidos(t.getBalance().getPlatosVendidos() + o.getL().size());
+        for (Producto p: o.getL()){
+            for (prodStock ps: t.getBalance().getS()){
+                if (p.getNombre().equals(ps.getNombre())){
+                    ps.setCantp(ps.getCantp()+1);
+                }
+            } 
+        }
+    }
+    
+    public void estats(Tienda t){
+        System.out.println("Se han vendido "+t.getBalance().getPlatosVendidos()+" platos");
+        if(t.getBalance().getPlatosVendidos() != 0){
+            for(prodStock ps: t.getBalance().getS()){
+            System.out.println("Un " + (ps.getCantp()/t.getBalance().getPlatosVendidos())*100 + "% son " + ps.getNombre());
+            }
+        }    
+    }
 }
+

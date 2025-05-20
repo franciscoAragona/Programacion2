@@ -14,11 +14,18 @@ import java.util.Scanner;
  */
 public class Stock {
     List<prodStock> s = new ArrayList<prodStock>();
+
+    public List<prodStock> getS() {
+        return s;
+    }
+
+    public void setS(List<prodStock> s) {
+        this.s = s;
+    }
     
-    
-    public void delStock(Orden o, List<prodStock> s){
+    public void delStock(Orden o, Tienda t){
         for (Producto p: o.l){
-            for (prodStock ps:s){
+            for (prodStock ps: t.getStockTienda().getS()){
                 if (p.getNombre().equals(ps.getNombre())){
                     ps.setCantp(ps.getCantp()-1);
                 }
@@ -26,13 +33,13 @@ public class Stock {
         }
     }
     
-    public void addStock(Orden o, List<prodStock> s){
+    public void addStock(Tienda t, List<Producto> s){
         Scanner sc = new Scanner(System.in);
         int cant = 0;
-        for (Producto p: o.l){
-            for (prodStock ps:s){
+        for (Producto p: s){
+            for (prodStock ps: t.getStockTienda().getS()){
                 if (p.getNombre().equals(ps.getNombre())){
-                    System.out.println(" cantidad de: "+ p.mostrarP());
+                    System.out.println("Add a: "+ p.mostrarP());
                     cant = sc.nextInt();
                     ps.setCantp(ps.getCantp()+cant);
                 }
@@ -40,26 +47,25 @@ public class Stock {
         }
     }
     
-    public void createStock(Orden o, Tienda t){
+    public void createStock(Tienda t){
         Scanner sc = new Scanner(System.in);
-        
-        for (Producto p: o.l){
+        for (Producto p: t.getMenu()){
             int cant = 0;
-            
             System.out.println(" cantidad de: "+ p.mostrarP());
             cant = sc.nextInt();
             prodStock ps = new prodStock(p.getNombre(), p.getPrecio(), cant);
-                
+            t.getStockTienda().s.add(ps);
         }
     }
     
-    public String checkStock(Producto prod, List<prodStock> s){
-        for (Producto p: s){
-            if (p.getNombre().equals(prod.getNombre())){
-                return "OK";
+    public boolean checkStock(Producto prod, List<prodStock> s){
+        for (prodStock ps: s){
+            if (ps.getNombre().equals(prod.getNombre())){
+                ps.setCantp(ps.getCantp()-1);
+                return true;
             }   
         }
-        return "NO HAY";
+        return false;
     }
 }
 
